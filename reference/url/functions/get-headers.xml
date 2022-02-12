@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: 67dc0a5dfc5cdc65cce5d472ed0bba315b895f28 Maintainer: nilgun Status: ready -->
+<!-- EN-Revision: a123b24db5b3e42841179fea13cd508418fc45c7 Maintainer: nilgun Status: ready -->
 <refentry xml:id="function.get-headers" xmlns="http://docbook.org/ns/docbook">
  <refnamediv>
   <refname>get_headers</refname>
@@ -48,7 +48,7 @@
      <listitem>
       <para>
        <function>stream_context_create</function> ile oluşturulmuş geçerli
-       bir bağlam özkaynağı.
+       bir bağlam özkaynağı ya da öntanımlı bağlamı kullanmak için &null;.
       </para>
      </listitem>
     </varlistentry>

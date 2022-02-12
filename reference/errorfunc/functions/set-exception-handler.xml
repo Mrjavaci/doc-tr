@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: b95e76e41de2ffe5c75e04be1b187d80ca745359 Maintainer: nilgun Status: ready -->
+<!-- EN-Revision: 769812c12f00c1978bf7dd711dca38dbf05462da Maintainer: nilgun Status: ready -->
 <refentry xml:id="function.set-exception-handler" xmlns="http://docbook.org/ns/docbook">
  <refnamediv>
   <refname>set_exception_handler</refname>
@@ -10,7 +10,8 @@
  <refsect1 role="description">
   &reftitle.description;
   <methodsynopsis>
-   <type class="union"><type>string</type><type>array</type><type>object</type><type>null</type></type><methodname>set_exception_handler</methodname>
+   <type class="union"><type>callable</type><type>null</type></type>
+   <methodname>set_exception_handler</methodname>
    <methodparam><type class="union"><type>callable</type><type>null</type></type><parameter>istisna_işleyici</parameter></methodparam>
   </methodsynopsis>
   <para>
@@ -30,18 +31,12 @@
      <term><parameter>istisna_işleyici</parameter></term>
      <listitem>
       <para>
-       Yakalanmamış bir istisna olduğunda çağrılacak işlevin ismi.
-       Bu eylemci işlevin tek bir değiştirge kabul etmesi gerekir:
-       Yavrulanan istisna nesnesi. PHP 7 öncesi işlevin tanımı:
-      </para>
-      <para>
-       <methodsynopsis>
-        <type>void</type><methodname><replaceable>işleyici</replaceable></methodname>
-        <methodparam><type>Exception</type><parameter>istisna</parameter></methodparam>
-       </methodsynopsis>
-      </para>
-      <para>
-       PHP 7'den beri, çoğu hata, işleyici tarafından da yakalanacak olan <classname>Error</classname> yavrulanarak raporlanmaktadır. <classname>Error</classname> ve <classname>Exception</classname> sınıflarının ikisi de <classname>Throwable</classname> arayüzünü gerçekler. PHP 7'den beri kullanılan işleyici tanımı:
+       Yakalanmamış bir istisna olduğunda çağrılacak işlev. Çoğu hata,
+       işleyici tarafından da yakalanacak olan <classname>Error</classname>
+       yavrulanarak raporlanmaktadır. <classname>Error</classname> ve
+       <classname>Exception</classname> sınıflarının ikisi de
+       <classname>Throwable</classname> arayüzünü gerçekler.
+       Kullanılacak işleyicinin tanımı:
       </para>
       <para>
        <methodsynopsis>

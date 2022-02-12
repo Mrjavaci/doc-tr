@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: 39247cb926279de9e55208242d4994538c49690b Maintainer: nilgun Status: ready -->
+<!-- EN-Revision: 33d23851b05574b9ad0b2adcceb9d9ba713e9c6b Maintainer: nilgun Status: ready -->
 <!-- CREDITS: cumhuronat, tpug, antimon, flarecaster -->
-
 <!ENTITY installation.enabled.disable 'Bu eklenti öntanımlı olarak etkindir.
 Derleme sırasında bu seçenekle iptal edilebilir: '>
 
@@ -657,7 +656,15 @@ Yukarıdaki örneklerin 64 bitlik makinelerdeki çıktısı:</para>'>
 kullandıktan sonra girdi dizisinin dahili göstericisini <link
 linkend="function.reset">ilk elemana konumlandırır</link>.</simpara></note>'>
 
-<!-- FIXME -->
+<!ENTITY array.changelog.by-ref '<row xmlns="http://docbook.org/ns/docbook">
+ <entry>8.0.0</entry>
+ <entry>
+  Eğer <parameter>işlev</parameter>e değiştirgelerinden biri gönderimli
+  aktarılıyorsa, bu artık <constant>E_WARNING</constant> seviyesinde
+  bir uyarıya sebep oluyor.
+ </entry>
+</row>'>
+
 <!ENTITY seealso.array.sorting '<link xmlns="http://docbook.org/ns/docbook"
 linkend="array.sorting">Dizilerde Sıralama</link>'>
 
@@ -2167,7 +2174,7 @@ Sadece yordamsal tarz: <function>mysqli_connect</function> veya
 </para></listitem></varlistentry>'>
 
 <!ENTITY mysqli.stmt.description '<varlistentry xmlns="http://docbook.org/ns/docbook">
-<term><parameter>deyimt</parameter></term><listitem><para>
+<term><parameter>deyim</parameter></term><listitem><para>
 Sadece yordamsal tarz: <function>mysqli_stmt_init</function> işlevinden
 dönen bir <classname>mysqli_stmt</classname> nesnesi.
 </para></listitem></varlistentry>'>
@@ -2520,17 +2527,19 @@ olarak döndürüleceği unutulmamalıdır.'>
 
 <!-- XMLWriter Notes -->
 <!ENTITY xmlwriter.xmlwriter.description '<varlistentry
-xmlns="http://docbook.org/ns/docbook"><term>
-<parameter>nesne</parameter></term><listitem><para>Sadece yordamsal çağrılar
-için. Değiştirilecek <classname>XMLWriter</classname> örneği. Nesne
-<function>xmlwriter_open_uri</function> veya
-<function>xmlwriter_open_memory</function> işlevinden döndürülür.
-</para></listitem></varlistentry>'>
+xmlns="http://docbook.org/ns/docbook">
+ <term><parameter>nesne</parameter></term>
+ <listitem><para>Sadece yordamsal çağrılar için. Değiştirilecek
+  <classname>XMLWriter</classname> örneği. Nesne
+  <function>xmlwriter_open_uri</function> veya
+  <function>xmlwriter_open_memory</function> işlevinden döndürülür.
+ </para></listitem>
+</varlistentry>'>
 
 <!ENTITY xmlwriter.changelog.writer-param '<row xmlns="http://docbook.org/ns/docbook">
 <entry>8.0.0</entry><entry><parameter>nesne</parameter> için artık
-<classname>XMLWriter</classname> örneği gerekiyor, evvelce <type>resource</type>
-türünde bir değer gerekirdi. </entry></row>'>
+<classname>XMLWriter</classname> örneği gerekiyor, evvelce
+<type>resource</type> türünde bir değer gerekirdi.</entry></row>'>
 
 <!-- SOAP notes -->
 <!ENTITY soap.wsdl.mode.only '<note xmlns="http://docbook.org/ns/docbook">
@@ -3186,10 +3195,11 @@ uster is used.</entry>
           <entry>
            <para>
             A document containing the configuration for one or more KMS
-            providers, which are used to encrypt data keys. Currently
-            <literal>"aws"</literal>, <literal>"azure"</literal>,
-            <literal>"gcp"</literal>, and <literal>"local"</literal> are
-            supported and at least one must be specified.
+            providers, which are used to encrypt data keys. Supported
+            providers include <literal>"aws"</literal>,
+            <literal>"azure"</literal>, <literal>"gcp"</literal>,
+            <literal>"kmip"</literal>, and <literal>"local"</literal>
+            and at least one must be specified.
            </para>
            <para>
             The format for <literal>"aws"</literal> is as follows:
@@ -3221,11 +3231,20 @@ azure: {
            </para>
            <programlisting role="javascript">
 <![CDATA[
-aws: {
+gcp: {
     email: <string>,
     privateKey: <base64 string>|<MongoDB\BSON\Binary>,
     endpoint: <optional string> // Defaults to "oauth2.googleapis.com"
-
+}
+]]>
+           </programlisting>
+           <para>
+            The format for <literal>"kmip"</literal> is as follows:
+           </para>
+           <programlisting role="javascript">
+<![CDATA[
+kmip: {
+    endpoint: <string>
 }
 ]]>
            </programlisting>
@@ -3243,7 +3262,33 @@ local: {
           </entry>
          </row>
 '>
-<!ENTITY mongodb.option.maxCommitTimeMS '
+
+<!ENTITY mongodb.option.encryption.tlsOptions '
+         <row xmlns="http://docbook.org/ns/docbook">
+          <entry>tlsOptions</entry>
+          <entry><type>array</type></entry>
+          <entry>
+           <para>
+            A document containing the TLS configuration for one or more KMS
+            providers. Supported providers include <literal>"aws"</literal>,
+            <literal>"azure"</literal>, <literal>"gcp"</literal>, and
+            <literal>"kmip"</literal>. All providers support the following
+            options:
+           </para>
+           <programlisting role="javascript">
+<![CDATA[
+<provider>: {
+    tlsCaFile: <optional string>,
+    tlsCertificateKeyFile: <optional string>,
+    tlsCertificateKeyFilePassword: <optional string>
+}
+]]>
+           </programlisting>
+          </entry>
+         </row>
+'>
+
+ <!ENTITY mongodb.option.maxCommitTimeMS '
          <row xmlns="http://docbook.org/ns/docbook">
           <entry>maxCommitTimeMS</entry>
           <entry>int</entry>
@@ -3482,6 +3527,17 @@ local: {
     on a secondary (excluding its "local" database) will fail.
    </simpara>
   </note>
+'>
+<!ENTITY mongodb.warning.duplicate-keys '
+   <warning xmlns="http://docbook.org/ns/docbook">
+    <simpara>
+     BSON documents can technically contain duplicate keys because documents are
+     stored as a list of key-value pairs; however, applications should refrain
+     from generating documents with duplicate keys as server and driver behavior
+     may be undefined. Since PHP objects and arrays cannot have duplicate keys,
+     data could also be lost when decoding a BSON document with duplicate keys.
+    </simpara>
+   </warning>
 '>
 
 <!-- Radius -->

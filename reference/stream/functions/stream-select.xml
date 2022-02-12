@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: 4754397753fd79f1c846868b66a2448babab1c54 Maintainer: nilgun Status: ready -->
+<!-- EN-Revision: a123b24db5b3e42841179fea13cd508418fc45c7 Maintainer: nilgun Status: ready -->
 <refentry xml:id="function.stream-select" xmlns="http://docbook.org/ns/docbook">
  <refnamediv>
   <refname>stream_select</refname>
-  <refpurpose>Belirtilen akım dizisi üzerinde belirtilen zaman aşımı ile
-  select() sistem çağrısının eşdeğeri olarak çalışır</refpurpose>
+  <refpurpose>Belirtilen akım dizisi üzerinde saniye ve mikrosaniye ile
+   belirtilen zaman aşımıyla select() sistem çağrısının eşdeğeri olarak
+   çalışır</refpurpose>
  </refnamediv>
  <refsect1 role="description">
   &reftitle.description;
   <methodsynopsis>
-   <type>int</type><methodname>stream_select</methodname>
-   <methodparam><type>array</type><parameter role="reference">oku</parameter></methodparam>
-   <methodparam><type>array</type><parameter role="reference">yaz</parameter></methodparam>
-   <methodparam><type>array</type><parameter role="reference">dış</parameter></methodparam>
-   <methodparam><type>int</type><parameter>saniye</parameter></methodparam>
-   <methodparam choice="opt"><type>int</type><parameter>mikrosaniye</parameter><initializer>0</initializer></methodparam>
+   <type class="union"><type>int</type><type>false</type></type>
+   <methodname>stream_select</methodname>
+   <methodparam><type class="union"><type>array</type><type>false</type></type><parameter role="reference">oku</parameter></methodparam>
+   <methodparam><type class="union"><type>array</type><type>false</type></type><parameter role="reference">yaz</parameter></methodparam>
+   <methodparam><type class="union"><type>array</type><type>false</type></type><parameter role="reference">dış</parameter></methodparam>
+   <methodparam><type class="union"><type>int</type><type>false</type></type><parameter>saniye</parameter></methodparam>
+   <methodparam choice="opt"><type class="union"><type>int</type><type>null</type></type><parameter>mikrosaniye</parameter><initializer>&null;</initializer></methodparam>
   </methodsynopsis>
   <para>
    <function>stream_select</function> işlevi akımları diziler halinde kabul
@@ -124,6 +126,28 @@
    &false; döndürür ve bir uyarı çıktılanır (sistem çağrısı bir sinyal ile
    kesilince de bu olur).
   </para>
+ </refsect1>
+
+  <refsect1 role="changelog">
+  &reftitle.changelog;
+  <informaltable>
+   <tgroup cols="2">
+    <thead>
+     <row>
+      <entry>&Version;</entry>
+      <entry>&Description;</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>8.1.0</entry>
+      <entry>
+       <parameter>mikrosaniye</parameter> artık &null; olabiliyor.
+      </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
  </refsect1>
 
  <refsect1 role="examples">
