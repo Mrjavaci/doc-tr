@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: b5275f7e82de31a5376383f5b3bf2413dead7b21 Maintainer: nilgun Status: ready -->
+<!-- EN-Revision: 936fd03a7f8c0cc595f084e55a5a47a6f4a1411d Maintainer: nilgun Status: ready -->
 <!-- CREDITS: cumhuronat, tpug, antimon, flarecaster -->
 <!ENTITY installation.enabled.disable 'Bu eklenti öntanımlı olarak etkindir.
 Derleme sırasında bu seçenekle iptal edilebilir: '>
@@ -581,6 +581,12 @@ Bu işlevin kullanımı PHP 7.1.0&apos;dan beri
 </para><para xmlns="http://docbook.org/ns/docbook">
 Bu işlevin yerine kulllanılabilecekler:</para>'>
 
+<!ENTITY warn.deprecated.function-8-1-0.alternatives '
+<warning xmlns="http://docbook.org/ns/docbook"><simpara>Bu işlevin kullanımı
+PHP 8.1.0&apos;dan beri <emphasis>ÖNERİLMEMEKTEDİR</emphasis>. Bu işleve
+güvenilmesi kesinlikle önerilmez.</simpara></warning>
+<para xmlns="http://docbook.org/ns/docbook">Bu işlevin yerine
+kulllanılabilecekler:</para>'>
 
 <!-- Misc -->
 
@@ -636,6 +642,9 @@ Yukarıdaki örneğin PHP 8.0 çıktısı:</para>'>
 <!ENTITY example.outputs.81 '<para xmlns="http://docbook.org/ns/docbook">
 Yukarıdaki örneğin PHP 8.1 çıktısı:</para>'>
 
+<!ENTITY example.outputs.82 '<para xmlns="http://docbook.org/ns/docbook">
+Yukarıdaki örneğin PHP 8.2 çıktısı:</para>'>
+
 <!ENTITY example.outputs.32bit '<para xmlns="http://docbook.org/ns/docbook">
 Yukarıdaki örneğin 32 bitlik makinelerdeki çıktısı:</para>'>
 
@@ -666,6 +675,14 @@ linkend="function.reset">ilk elemana konumlandırır</link>.</simpara></note>'>
   aktarılıyorsa, bu artık <constant>E_WARNING</constant> seviyesinde
   bir uyarıya sebep oluyor.
  </entry>
+</row>'>
+
+<!ENTITY array.changelog.require-only-one '<row xmlns="http://docbook.org/ns/docbook">
+  <entry>8.0.0</entry>
+  <entry>
+  Bu işlev artık yalnızca tek bir değiştirge ile çağrılabiliyor.
+  Evvelve en az iki değiştirge gerekirdi.
+  </entry>
 </row>'>
 
 <!ENTITY seealso.array.sorting '<link xmlns="http://docbook.org/ns/docbook"
@@ -1232,7 +1249,7 @@ türünde Unicode karakter kodu (örn. <literal>"\u{2603}"</literal>)</para>'>
 <!ENTITY intl.codepoint.return '<para xmlns="http://docbook.org/ns/docbook">
 Unicode karakter kodu <type>string</type> türünde ise dönüş türü
 <type>string</type>, Unicode karakter kodu <type>int</type> türündeyse dönüş
-türü <type>int</type> olacaktır.</para>'>
+türü <type>int</type> olacaktır. Başarısızlık durumunda &null; döner.</para>'>
 
 <!ENTITY intl.codepoint.example 'Farklı karakter kodlarının denenmesi'>
 
@@ -1326,6 +1343,23 @@ xmlns="http://docbook.org/ns/docbook">
 <!ENTITY ldap.return-result 'Başarı durumunda <classname
 xmlns="http://docbook.org/ns/docbook">LDAP\Result</classname>
 nesnesi,&return.falseforfailure;.'>
+
+<!ENTITY ldap.return-result-array 'Başarı durumunda <classname
+xmlns="http://docbook.org/ns/docbook">LDAP\Result</classname> örneği veya
+<classname xmlns="http://docbook.org/ns/docbook">LDAP\Result</classname>
+örnekleri dizisi,&return.falseforfailure;.'>
+
+<!ENTITY ldap.return-result-array-info '<para xmlns="http://docbook.org/ns/docbook">
+Aynı anda bir çok arama yapmak münkündür. Bu durumda, ilk değiştirge, tek bir
+<classname>LDAP\Connection</classname> örneği değil,
+<classname>LDAP\Connection</classname> örnekleri dizisi olmalıdır. Aramalarda
+aynı temel DN veya süzgeç kullanılmayacaksa bunun yerine ya temel DN dizisi
+ya da süzgeç dizisi belirtilmeli ve bu diziler
+<classname>LDAP\Connection</classname> örnekleri dizisi ile aynı sayıda
+eleman içermelidir, bunun sebebi bu dizilerin her girdisinin sırayla ayrı
+aramalarda kullanılmasıdır. Aynı anda çoklu arama yapılması durumunda,
+&false; döndüren bir hata oluşmadığı takdirde bir
+<classname>LDAP\Result</classname> örnekleri dizisi döner.</para>'>
 
 <!-- mbstring notes -->
 
@@ -1573,6 +1607,10 @@ biçem: <function>timezone_open</function> işlevinden dönen bir
 <classname xmlns="http://docbook.org/ns/docbook">DateTime</classname>
 nesnesi,&return.falseforfailure;.'>
 
+<!ENTITY date.datetimeimmutable.return.modifiedobjectorfalseforfailure
+'Değişmiş <classname xmlns="http://docbook.org/ns/docbook">DateTimeImmutable</classname>
+nesnesi,&return.falseforfailure;.'>
+
 <!ENTITY date.timezone.dbversion 'Bu liste zaman dilimi veritabanının şu sürümüne dayanır: '>
 
 <!ENTITY date.timezone.africa 'Afrika'>
@@ -1617,10 +1655,10 @@ bir durumu atlatabilmek için
 işleme işlevleri</link> kullanılabilir.</para>'>
 
 <!ENTITY dom.note.utf8 '<note xmlns="http://docbook.org/ns/docbook">
-<para>DOM eklentisi UTF-8 kodlama kullanır. ISO-8859-1 kodlamalı metinlerle
-çalışmak için <function>utf8_encode</function> ve
-<function>utf8_decode</function> işlevleri ve diğer kodlamalar için
-<link linkend="ref.iconv">iconv</link> kullanılabilir.</para></note>'>
+<para>DOM eklentisi UTF-8 kodlama kullanır. Diğer kodlamalarla çalışmak için
+<function>mb_convert_encoding</function>,
+<methodname>UConverter::transcode</methodname> veya <function>iconv</function>
+kullanılabilir.</para></note>'>
 
 <!ENTITY dom.note.json '<note xmlns="http://docbook.org/ns/docbook">
 <para><classname>DOMDocument</classname> nesnesi üzerinde
@@ -2039,13 +2077,17 @@ PostgreSQL veritabanı bağlantısı özkaynağı.</para>'>
 xmlns="http://docbook.org/ns/docbook"><classname>PgSql\Connection</classname>
 nesnesi. <parameter>bağlantı</parameter> belirtilmemişse öntanımlı bağlantı
 kullanılır. Öntanımlı bağlantı <function>pg_connect</function>
-veya <function>pg_pconnect</function> işleviyle kurulmuş son bağlantıdır.</para>'>
+veya <function>pg_pconnect</function> işleviyle kurulmuş son bağlantıdır.
+<warning><simpara>PHP 8.1.0 ve sonrasında, öntanımlı bağlantının kullanımı
+önerilmemektedir.</simpara></warning></para>'>
 
 <!ENTITY pgsql.parameter.connection-with-nullable-default '<para
 xmlns="http://docbook.org/ns/docbook"><classname>PgSql\Connection</classname>
 nesnesi. <parameter>bağlantı</parameter> &null; ise,  öntanımlı bağlantı
 kullanılır.Öntanımlı bağlantı <function>pg_connect</function>
-veya <function>pg_pconnect</function> işleviyle kurulmuş son bağlantıdır.</para>'>
+veya <function>pg_pconnect</function> işleviyle kurulmuş son bağlantıdır.
+<warning><simpara>PHP 8.1.0 ve sonrasında, öntanımlı bağlantının kullanımı
+önerilmemektedir.</simpara></warning></para>'>
 
 <!ENTITY pgsql.parameter.result '<para xmlns="http://docbook.org/ns/docbook">
 <function>pg_query</function>, <function>pg_query_params</function> veya
@@ -2055,6 +2097,16 @@ veya <function>pg_pconnect</function> işleviyle kurulmuş son bağlantıdır.</
 <!ENTITY pgsql.parameter.lob '<para xmlns="http://docbook.org/ns/docbook">
 <function>pg_lo_open</function>işlevinden dönen
 <classname>PgSql\Lob</classname> nesnesi.</para>'>
+
+<!ENTITY pgsql.parameter.mode '<para xmlns="http://docbook.org/ns/docbook">
+Dizinin nasıl indisleneceğini belirleyen seçimlik değiştirge.
+<parameter>kip</parameter> bir sabit olup şu değerleri alabilir:
+<constant>PGSQL_ASSOC</constant>, <constant>PGSQL_NUM</constant> ve
+<constant>PGSQL_BOTH</constant>.
+<constant>PGSQL_NUM</constant> ile işlev sayısal indisli bir dizi,
+<constant>PGSQL_ASSOC</constant> ile ilişkisel bir dizi ve
+<constant>PGSQL_BOTH</constant> ile hem sayısal hem de ilişkisel indisli bir
+dizi döndürür.</para>'>
 
 <!ENTITY pgsql.changelog.connection-object '<row xmlns="http://docbook.org/ns/docbook">
  <entry>8.1.0</entry>
@@ -2140,6 +2192,9 @@ oluşturan bir dizge olarak yorumlanır.</para></note>'>
 olarak değil bir dizge olarak yorumlanacaktır. Amaçlanan davranışa bağlı
 olarak, değiştirge ya &string; türe dönüştürülmeli ya da doğrudan
 <function>chr</function> çağrısı yapılmalıdır.</para></warning>'>
+
+<!ENTITY ctype.result.empty-string 'Boş dizge ile çağrıldığında sonuç daima
+&false; olur.'>
 
 <!-- FTP Notes -->
 <!ENTITY ftp.changelog.ftp-param '<row xmlns="http://docbook.org/ns/docbook">
@@ -3183,6 +3238,21 @@ used.</para>'>
          </row>
 '>
 
+<!ENTITY mongodb.option.let '
+         <row xmlns="http://docbook.org/ns/docbook">
+          <entry>let</entry>
+          <entry><type class="union"><type>array</type><type>object</type></type></entry>
+          <entry>
+           <para>
+            Map of parameter names and values. Values must be constant or closed expressions that do not reference document fields. Parameters can then be accessed as variables in an aggregate expression context (e.g. <literal>$$var</literal>).
+           </para>
+           <para>
+            This option is available in MongoDB 5.0+ and will result in an exception at execution time if specified for an older server version.
+           </para>
+          </entry>
+         </row>
+'>
+
 <!ENTITY mongodb.option.encryption.keyVaultClient '
          <row xmlns="http://docbook.org/ns/docbook">
           <entry>keyVaultClient</entry>
@@ -3470,6 +3540,19 @@ local: {
 <!ENTITY mongodb.throws.authentication '<member xmlns="http://docbook.org/ns/docbook">Throws <classname>MongoDB\Driver\Exception\AuthenticationException</classname> if authentication is needed and fails.</member>'>
 <!ENTITY mongodb.throws.connection '<member xmlns="http://docbook.org/ns/docbook">Throws <classname>MongoDB\Driver\Exception\ConnectionException</classname> if connection to the server fails (for reasons other than authentication).</member>'>
 <!ENTITY mongodb.throws.bson.unexpected '<member xmlns="http://docbook.org/ns/docbook">Throws <classname>MongoDB\Driver\Exception\UnexpectedValueException</classname> if the input did not contain exactly one BSON document. Possible reasons include, but are not limited to, invalid BSON, extra data (after reading one BSON document), or an unexpected <link xlink:href="&url.mongodb.libbson;" xmlns:xlink="http://www.w3.org/1999/xlink">libbson</link> error.</member>'>
+
+<!ENTITY mongodb.note.queryable-encryption-preview '
+   <note xmlns="http://docbook.org/ns/docbook">
+    <simpara>
+     Queryable Encryption is in public preview and available for evaluation
+     purposes. It is not yet recommended for production deployments as breaking
+     changes may be introduced. See the <link
+     xlink:href="https://www.mongodb.com/blog/post/mongodb-releases-queryable-encryption-preview/"
+     xmlns:xlink="http://www.w3.org/1999/xlink">Queryable Encryption
+      Preview</link> blog post for more information.
+    </simpara>
+   </note>
+'>
 
 <!ENTITY mongodb.note.decimal128 '
    <note xmlns="http://docbook.org/ns/docbook">
@@ -3918,6 +4001,44 @@ dönüşümde ele alınacak değiştirge sayısını belirler.</para></formalpar
   </para>
  </listitem>
 </varlistentry>
+'>
+
+<!ENTITY strings.scanf.parameter.format '
+<varlistentry xmlns="http://docbook.org/ns/docbook">
+     <term><parameter>biçem</parameter></term>
+     <listitem>
+      <para>
+       Girdi <parameter>dizge</parameter>sinin yorumlanmasında kullanılan
+       bu dizge ile ilgili ayrıntılar aşağıdaki farklar dışında
+       <function>sprintf</function> işlevinin belgesinde açıklanmıştır:
+       <simplelist>
+        <member>
+         İşlev yerele duyarlı değildir.
+        </member>
+        <member>
+         <literal>F</literal>, <literal>g</literal>, <literal>G</literal> and
+         <literal>b</literal> desteklenmez.
+        </member>
+        <member>
+         <literal>D</literal> ondalık sayı anlamına gelir.
+        </member>
+        <member>
+         <literal>i</literal> taban algılamalı tamsayı anlamına gelir.
+        </member>
+        <member>
+         <literal>n</literal> şimdiye kadar işlenen karakter sayısı anlamına gelir.
+        </member>
+        <member>
+         <literal>s</literal> herhangi bir boşluk karakterinde okumayı durdurur.
+        </member>
+        <member>
+         <literal>dğşnum$</literal> yerine  <literal>*</literal>
+         bu dönüştürme belirtiminin atamasını baskılar.
+        </member>
+       </simplelist>
+      </para>
+     </listitem>
+    </varlistentry>
 '>
 
 <!ENTITY strings.parameter.needle.non-string '

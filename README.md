@@ -216,7 +216,7 @@ Attribute       Öznitelik
 Authentication  Kimlik doğrulama
 Authorization   Yetkilendirme
 Backslash       Ters bölü
-Binary          Programsa kastedilen "çalıştırılabilir", kendisi bir veri
+Binary          Uygulamaysa kastedilen "çalıştırılabilir", kendisi bir veri
                 türü ise çevrilmez, veri türünü niteliyorsa "ikil", bir
                 işleci niteliyorsa "iki terimli".
 Bitwise         Bitsel
@@ -224,6 +224,7 @@ Boolean         Mantıksal
 Built-in        Yerleşik
 Callback        Geriçağırım
 Class           Sınıf
+Closure         Kapsanım
 Unicode Code Point    Unicode Karakter Kodu
 Compile         Derleme
 Configuration   Yapılandırma
@@ -310,6 +311,7 @@ Transaction     Veri hareketi
 Type            "Tür" veya "veri türü"
 Unary           Tek terimli
 Union type      Birleşim türü
+Unpack          Genişletme, yayma
 Unserialize     Nesneleştirme
 Validation      Geçerlilik
 Variable        Değişken
